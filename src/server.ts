@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 import app from './app';
 import config from './app/config';
@@ -5,8 +6,6 @@ import config from './app/config';
 const connectionString = config.db_url
   ?.replace('<DB_USERNAME>', config.db_username as string)
   .replace('<DB_PASSWORD>', config.db_password as string);
-
-console.log(connectionString);
 
 const port = config.port;
 // console.log(connectionString);
