@@ -8,4 +8,5 @@ export default {
   db_url: process.env.DB_URL,
   db_password: process.env.DB_PASSWORD,
   db_username: process.env.DB_USERNAME,
+  node_env: process.env.NODE_ENV,
 };

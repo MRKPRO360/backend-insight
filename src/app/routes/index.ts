@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import BlogRoutes from '../modules/blog/blog.routes';
+import { BlogRoutes } from '../modules/blog/blog.routes';
 
 const router = Router();
 
@@ -10,6 +10,8 @@ const moduleRoutes = [
   },
 ];
 
-moduleRoutes.forEach((route) => router.use(route.path, route.route));
+moduleRoutes.forEach((route) => {
+  router.use(route.path, route.route);
+});
 
 export default router;

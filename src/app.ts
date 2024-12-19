@@ -1,7 +1,8 @@
 import cors from 'cors';
 import express, { Application } from 'express';
-import router from './app/routes';
 import notFound from './app/middlewares/not-found';
+import router from './app/routes';
+import globalErrHandler from './app/middlewares/globalErrHandler';
 
 const app: Application = express();
 
@@ -13,9 +14,12 @@ app.use(cors({ origin: ['http://localhost:3000'] }));
 app.use('/api', router);
 
 // GENERIC RESPONSE
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send('HELLO WORLD 👋');
 });
+
+// GLOBAL ERR HANDLER
+app.use(globalErrHandler);
 
 //NOT-FOUND
 app.use(notFound);

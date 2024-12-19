@@ -1,12 +1,12 @@
-import { Router } from 'express';
 import BlogControllers from './blog.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import BlogValidations from './blog.validation';
+import express from 'express';
 
-const router = Router();
+const router = express.Router();
 
 router
-  .route('/blogs')
+  .route('/')
   .post(
     validateRequest(BlogValidations.createBlogValidationSchema),
     BlogControllers.createABlog,
@@ -14,11 +14,11 @@ router
   .get(BlogControllers.getAllBlogs);
 
 router
-  .route('/blogs/:id')
+  .route('/:id')
   .patch(
     validateRequest(BlogValidations.updateBlogValidationSchema),
     BlogControllers.updateABlog,
   )
   .delete(BlogControllers.deleteABlog);
 
-export default router;
+export const BlogRoutes = router;
