@@ -12,12 +12,13 @@ const port = config.port;
 
 async function main() {
   try {
-    await mongoose.connect(connectionString as string);
+    await mongoose.connect(connectionString as string, { autoIndex: true });
     app.listen(port, () => {
       console.log(`App is listening on port ${port}`);
     });
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    console.error(`Error: ${err.message}`);
+    process.exit(1);
   }
 }
 

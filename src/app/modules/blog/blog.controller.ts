@@ -30,7 +30,7 @@ const createABlog = catchAsync(async (req, res) => {
   const result = await BlogServices.createABlogInDB(req.body);
 
   sendResponse(res, {
-    statusCode: 200,
+    statusCode: 201,
     success: true,
     message: 'Blogs created sucessfully!',
     data: result,
@@ -44,7 +44,7 @@ const updateABlog = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: 'Blogs updated sucessfully!',
+    message: 'Blog updated sucessfully!',
     data: result,
   });
 });

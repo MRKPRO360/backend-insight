@@ -15,6 +15,7 @@ router
 
 router
   .route('/:id')
+  .get(BlogControllers.getABlog)
   .patch(
     validateRequest(BlogValidations.updateBlogValidationSchema),
     BlogControllers.updateABlog,

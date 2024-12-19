@@ -18,10 +18,12 @@ const updateABlogInDB = async (id: string, payload: Partial<IBlog>) => {
     new: true,
     runValidators: true,
   });
+  // .populate('author');
 };
 
 const deleteABlogFromDB = async (id: string) => {
-  return await Blog.findByIdAndDelete(id);
+  await Blog.findByIdAndDelete(id);
+  return null;
 };
 
 const BlogServices = {
