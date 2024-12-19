@@ -8,7 +8,11 @@ const registerUser = catchAsync(async (req, res) => {
     success: true,
     statusCode: 201,
     message: 'User registered successfully!',
-    data: result,
+    data: {
+      _id: result?._id,
+      name: result?.name,
+      email: result?.email,
+    },
   });
 });
 
