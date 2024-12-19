@@ -9,4 +9,5 @@ export default {
   db_password: process.env.DB_PASSWORD,
   db_username: process.env.DB_USERNAME,
   node_env: process.env.NODE_ENV,
+  bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
 };
