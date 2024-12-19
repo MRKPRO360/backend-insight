@@ -1,11 +1,15 @@
-import { Model } from 'mongoose';
-
 /* eslint-disable no-unused-vars */
+
+import { Model } from 'mongoose';
+import USER_ROLES from './user.constant';
+
+export type IUserRoles = keyof typeof USER_ROLES;
+
 export interface IUser {
   name: string;
   email: string;
   password: string;
-  role: 'user' | 'admin';
+  role: IUserRoles;
   isBlocked?: boolean;
 }
 

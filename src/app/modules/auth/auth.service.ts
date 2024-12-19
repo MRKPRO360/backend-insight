@@ -1,4 +1,3 @@
-import { JwtPayload } from 'jsonwebtoken';
 import { IUser } from '../user/user.interface';
 import User from '../user/user.model';
 import { ILogin } from './auth.interface';
@@ -11,10 +10,12 @@ const registerUserInDB = async (payload: IUser) => {
 };
 
 const LoginUserFromDB = async (payload: ILogin) => {
+  //CHECK IF THE USER IS EXISTS
   const user = await User.isUserExistsByEmail(payload.email);
 
   if (!user) throw new AppError(400, 'This user does not exists!');
 
+  //CHECK IF THE PASSWORD IS CORRECT
   const isPasswordMatched = await User.isPasswordMatched(
     payload?.password,
     user?.password,
@@ -23,11 +24,11 @@ const LoginUserFromDB = async (payload: ILogin) => {
   if (user && !isPasswordMatched)
     throw new AppError(403, 'Password does not match');
 
+  //CHECK IF THE USER IS BLOCKED
   if (user && user.isBlocked)
     throw new AppError(403, 'This user is not authorized!');
 
-  // CREATING AND SENDING BACK TOKEN TO THE CLIENT
-
+  // CREATING AND SENDING TOKEN BACK  TO THE CLIENT
   const jwtPayload = {
     email: user.email,
     role: user.role,
