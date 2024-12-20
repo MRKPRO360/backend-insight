@@ -9,7 +9,7 @@ const getAllBlogs = catchAsync(async (req, res) => {
     statusCode: 200,
     success: true,
     result: result.length,
-    message: 'Blogs retrieved sucessfully!',
+    message: 'Blogs fetched sucessfully!',
     data: result,
   });
 });
@@ -21,7 +21,7 @@ const getABlog = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: 'Blog retrieved sucessfully!',
+    message: 'Blog fetched sucessfully!',
     data: result,
   });
 });

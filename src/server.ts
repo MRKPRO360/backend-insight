@@ -2,18 +2,20 @@
 import mongoose from 'mongoose';
 import app from './app';
 import config from './app/config';
+import { Server } from 'http';
 
 const connectionString = config.db_url
   ?.replace('<DB_USERNAME>', config.db_username as string)
   .replace('<DB_PASSWORD>', config.db_password as string);
 
 const port = config.port;
-// console.log(connectionString);
 
-async function main() {
+let server: Server;
+
+async function connectToDB() {
   try {
     await mongoose.connect(connectionString as string, { autoIndex: true });
-    app.listen(port, () => {
+    server = app.listen(port, () => {
       console.log(`App is listening on port ${port}`);
     });
   } catch (err: any) {
@@ -22,4 +24,23 @@ async function main() {
   }
 }
 
-main();
+connectToDB();
+
+process.on('unhandledRejection', () => {
+  console.log('💥😥 Unhandled rejection, server is shutting down...');
+
+  if (server) {
+    server.close(() => {
+      process.exit(1);
+    });
+  }
+
+  process.exit(1);
+});
+process.on('uncaughtException', (err) => {
+  console.log(
+    '💥😥 Uncaught exception, server is shutting down...',
+    err.message,
+  );
+  process.exit(1);
+});
