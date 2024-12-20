@@ -9,7 +9,9 @@ const getAllBlogsFromDB = async () => {
 };
 
 const getABlogFromDB = async (id: string) => {
-  return await Blog.findById(id).populate('author');
+  const result = await Blog.findById(id).populate('author');
+  if (!result) throw new AppError(400, 'This blog does not exists');
+  return result;
 };
 
 const createABlogInDB = async (payload: IBlog, userData: JwtPayload) => {

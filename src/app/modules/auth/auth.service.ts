@@ -13,7 +13,7 @@ const LoginUserFromDB = async (payload: ILogin) => {
   //CHECK IF THE USER IS EXISTS
   const user = await User.isUserExistsByEmail(payload.email);
 
-  if (!user) throw new AppError(400, 'This user does not exists!');
+  if (!user) throw new AppError(401, 'Invalid credentials!');
 
   //CHECK IF THE PASSWORD IS CORRECT
   const isPasswordMatched = await User.isPasswordMatched(
@@ -22,7 +22,7 @@ const LoginUserFromDB = async (payload: ILogin) => {
   );
 
   if (user && !isPasswordMatched)
-    throw new AppError(403, 'Password does not match');
+    throw new AppError(401, 'Invalid credentials!');
 
   //CHECK IF THE USER IS BLOCKED
   if (user && user.isBlocked)
