@@ -34,9 +34,14 @@ class QueryBuilder<T> {
       'page',
       'limit',
       'fields',
+      'filter',
     ];
 
     excludedFields.forEach((el) => delete queryObj[el]);
+
+    if (this.query.filter) {
+      this.modelQuery = this.modelQuery.find({ author: this.query.filter });
+    }
 
     this.modelQuery = this.modelQuery.find(queryObj);
     return this;
@@ -58,7 +63,9 @@ class QueryBuilder<T> {
 
     const sort = sortArr.join(' ');
 
-    this.modelQuery = this.modelQuery.sort(sort);
+    if (sort.length > 0) {
+      this.modelQuery = this.modelQuery.sort(sort);
+    }
 
     return this;
   }
