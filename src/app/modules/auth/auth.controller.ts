@@ -18,7 +18,7 @@ const registerUser = catchAsync(async (req, res) => {
 });
 
 const loginUser = catchAsync(async (req, res) => {
-  const result = await AuthServices.LoginUserFromDB(req.body);
+  const result = await AuthServices.loginUserFromDB(req.body);
 
   const { refreshToken, accessToken } = result;
 
@@ -38,7 +38,21 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
+const refreshToken = catchAsync(async (req, res) => {
+  const { refreshToken } = req.cookies;
+
+  const result = await AuthServices.refreshTokenFromDB(refreshToken);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: 201,
+    message: 'User logged in successfully!',
+    data: result,
+  });
+});
+
 export const AuthControllers = {
   registerUser,
   loginUser,
+  refreshToken,
 };
