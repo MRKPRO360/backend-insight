@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
-import { IBlog } from './blog.interface';
+import { BlogModel, IBlog } from './blog.interface';
 
-const blogSchema = new Schema<IBlog>(
+const blogSchema = new Schema<IBlog, BlogModel>(
   {
     title: {
       type: String,
@@ -15,7 +15,6 @@ const blogSchema = new Schema<IBlog>(
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
-      unique: true,
     },
     isPublished: {
       type: Boolean,
@@ -27,6 +26,10 @@ const blogSchema = new Schema<IBlog>(
   },
 );
 
-const Blog = model<IBlog>('Blog', blogSchema);
+blogSchema.statics.isBlogExistsById = async function (id: string) {
+  return await Blog.findById(id);
+};
+
+const Blog = model<IBlog, BlogModel>('Blog', blogSchema);
 
 export default Blog;

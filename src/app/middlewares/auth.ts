@@ -7,7 +7,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const auth = (...requiredRoles: IUserRoles[]) => {
   return catchAsync(async (req, res, next) => {
-    const token = req.headers.authorization;
+    const token = req.headers.authorization?.split(' ')[1];
 
     // CHECK IF THE TOKEN IS EXISTS
     if (!token) throw new AppError(403, 'You are not authorized!');
