@@ -2,16 +2,12 @@ import { JwtPayload } from 'jsonwebtoken';
 import User from '../user/user.model';
 import AppError from '../../errors/AppError';
 import Blog from '../blog/blog.model';
-import USER_ROLES from '../user/user.constant';
 
 const blockUserInDB = async (id: string, userData: JwtPayload) => {
   //CHECK IF THE ADMIN IS EXISTS
   const admin = await User.isUserExistsByEmail(userData.email);
 
   if (!admin) throw new AppError(403, 'User does not exist!');
-
-  if (admin && admin.role !== USER_ROLES.admin)
-    throw new AppError(403, 'You are not authorized to perform this action');
 
   //CHECK IF THE USER IS EXISTS
   const user = await User.findById(id);
@@ -40,9 +36,6 @@ const deleteBlogFromDB = async (id: string, userData: JwtPayload) => {
   const admin = await User.isUserExistsByEmail(userData.email);
 
   if (!admin) throw new AppError(403, 'User does not exist!');
-
-  if (admin && admin.role !== USER_ROLES.admin)
-    throw new AppError(403, 'You are not authorized to perform this action');
 
   //CHECK IF THE BLOG IS EXISTS
   const blog = await Blog.isBlogExistsById(id);

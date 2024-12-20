@@ -24,6 +24,6 @@ router
     validateRequest(BlogValidations.updateBlogValidationSchema),
     BlogControllers.updateABlog,
   )
-  .delete(BlogControllers.deleteABlog);
+  .delete(auth(USER_ROLES.user), BlogControllers.deleteABlog);
 
 export const BlogRoutes = router;

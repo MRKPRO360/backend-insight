@@ -27,7 +27,8 @@ const getABlog = catchAsync(async (req, res) => {
 });
 
 const createABlog = catchAsync(async (req, res) => {
-  const result = await BlogServices.createABlogInDB(req.body);
+  const { user: userData } = req;
+  const result = await BlogServices.createABlogInDB(req.body, userData);
 
   sendResponse(res, {
     statusCode: 201,
@@ -38,8 +39,10 @@ const createABlog = catchAsync(async (req, res) => {
 });
 
 const updateABlog = catchAsync(async (req, res) => {
+  const { user: userData } = req;
   const { id } = req.params;
-  const result = await BlogServices.updateABlogInDB(id, req.body);
+
+  const result = await BlogServices.updateABlogInDB(id, userData, req.body);
 
   sendResponse(res, {
     statusCode: 200,
@@ -51,8 +54,9 @@ const updateABlog = catchAsync(async (req, res) => {
 
 const deleteABlog = catchAsync(async (req, res) => {
   const { id } = req.params;
+  const { user: userData } = req;
 
-  const result = await BlogServices.deleteABlogFromDB(id);
+  const result = await BlogServices.deleteABlogFromDB(id, userData);
 
   sendResponse(res, {
     statusCode: 200,
