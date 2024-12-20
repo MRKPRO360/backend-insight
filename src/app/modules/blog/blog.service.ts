@@ -3,9 +3,16 @@ import { IBlog } from './blog.interface';
 import Blog from './blog.model';
 import User from '../user/user.model';
 import AppError from '../../errors/AppError';
+import QueryBuilder from '../../builder/QueryBuilder';
 
-const getAllBlogsFromDB = async () => {
-  return await Blog.find().populate('author');
+const getAllBlogsFromDB = async (query: Record<string, unknown>) => {
+  const blogQuery = new QueryBuilder(Blog.find().populate('author'), query)
+    .search(['title', 'content'])
+    .filter()
+    .sort()
+    .paginate();
+
+  return await blogQuery.modelQuery;
 };
 
 const getABlogFromDB = async (id: string) => {
