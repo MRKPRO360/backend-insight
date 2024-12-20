@@ -3,7 +3,7 @@ import sendResponse from '../../utils/sendResponse';
 import BlogServices from './blog.service';
 
 const getAllBlogs = catchAsync(async (req, res) => {
-  const result = await BlogServices.getAllBlogsFromDB();
+  const result = await BlogServices.getAllBlogsFromDB(req.query);
 
   sendResponse(res, {
     statusCode: 200,
