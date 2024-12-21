@@ -27,6 +27,7 @@ function connectToDB() {
             server = app_1.default.listen(port, () => {
                 console.log(`App is listening on port ${port}`);
             });
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }
         catch (err) {
             console.error(`Error: ${err.message}`);

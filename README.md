@@ -21,7 +21,7 @@ This api allows a user to create his/her blog and update or delete his/her blog.
 
 ![App Screenshot](https://i.ibb.co.com/TYhx90h/ed4dc542-c5ae-4189-9676-064fae7a9eb9.webp)
 
-👉 [Live Demo](https://car-project-one.vercel.app/)
+👉 [Live Demo](https://backend-insight-oww0w3xqt-mrkpro360s-projects.vercel.app/)
 
 ## Tech Stack
 

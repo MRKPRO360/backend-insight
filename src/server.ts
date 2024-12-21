@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import mongoose from 'mongoose';
 import app from './app';
-import config from './app/config';
 import { Server } from 'http';
+import config from './app/config';
 
 const connectionString = config.db_url
   ?.replace('<DB_USERNAME>', config.db_username as string)
@@ -18,6 +18,7 @@ async function connectToDB() {
     server = app.listen(port, () => {
       console.log(`App is listening on port ${port}`);
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error(`Error: ${err.message}`);
     process.exit(1);
